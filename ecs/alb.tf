@@ -22,7 +22,14 @@ resource "aws_alb_target_group" "myapp-tg" {
     path                = var.health_check_path
     interval            = 30
   }
+
+  stickiness {
+    enabled = true
+    type = "lb_cookie"
+    cookie_duration = 86400
+  }
 }
+
 
 #redirecting all incomming traffic from ALB to the target group
 resource "aws_alb_listener" "testapp" {
